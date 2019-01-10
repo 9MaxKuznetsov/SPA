@@ -8,19 +8,19 @@
 </head>
 <body>
     <div id="app">
-        <div v-if="showText" id="text">
-            {{ text }}
-        </div>
+        <div v-if="showText" v-html="text" id="text"></div>
+        <div v-else>Important message!</div>
         <hr>
-        <button id="btn">Show text!</button>
+        <button v-bind:disabled="hideBtn" id="btn">Show text!</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         const app = new Vue({
             el: '#app',
             data: {
-                text: 'Text string',
-                showText: false
+                text: '<p>Some string</p><p>Some string</p>',
+                showText: false,
+                hideBtn: true
             }
         });
 
@@ -29,6 +29,10 @@
         btn.addEventListener('click', () => {
             app.showText = !app.showText;
         });
+
+        setTimeout(() => {
+            app.hideBtn = false;
+        }, 2000);
     </script>
 </body>
 </html>
