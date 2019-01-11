@@ -12,6 +12,10 @@
         <div v-else>Important message!</div>
         <hr>
         <button v-bind:disabled="hideBtn" id="btn">Show text!</button>
+        <hr>
+        <ul>
+            <li v-for="(item, index) in _users" v-bind:key="index">{{ item.prefix}}{{ item.name }}</li>
+        </ul>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -20,19 +24,49 @@
             data: {
                 text: '<p>Some string</p><p>Some string</p>',
                 showText: false,
-                hideBtn: true
+                hideBtn: true,
+                users: [
+                    {
+                        name: 'Ivan',
+                        gender: 'male'
+                    }, {
+                        name: 'Chloe',
+                        gender: 'female'
+                    }
+                ]
+            },
+            computed: {
+                _users() {
+                    return this.users.map(user => {
+                        const gender = user.gender;
+                        const prefix = (gender === 'male') ? 'Mr. ' : 'Ms. ';
+                        user.prefix = prefix;
+
+                        return user;
+                    });
+                }
+            },
+            mounted() {
+                this.btnAddClickEventHandler()
+            },
+            created() {
+                this.enableBtn()
+            },
+            methods: {
+                enableBtn() {
+                    setTimeout(() => {
+                    app.hideBtn = false;
+                }, 2000);
+                },
+                btnAddClickEventHandler() {
+                    const btn = document.querySelector('#btn');
+
+                    btn.addEventListener('click', () => {
+                         app.showText = !app.showText;
+                    });
+                }
             }
         });
-
-        const btn = document.querySelector('#btn');
-
-        btn.addEventListener('click', () => {
-            app.showText = !app.showText;
-        });
-
-        setTimeout(() => {
-            app.hideBtn = false;
-        }, 2000);
     </script>
 </body>
 </html>
