@@ -11,7 +11,12 @@
         <div v-if="showText" v-html="text" id="text"></div>
         <div v-else>Important message!</div>
         <hr>
-        <button v-bind:disabled="hideBtn" id="btn">Show text!</button>
+        <button 
+            ref="btn" 
+            @click="showText = !showText" 
+            :disabled="hideBtn" id="btn">
+            Show text!
+        </button>
         <hr>
         <ul>
             <li v-for="(item, index) in _users" v-bind:key="index">{{ item.prefix}}{{ item.name }}</li>
@@ -46,9 +51,6 @@
                     });
                 }
             },
-            mounted() {
-                this.btnAddClickEventHandler()
-            },
             created() {
                 this.enableBtn()
             },
@@ -57,13 +59,6 @@
                     setTimeout(() => {
                     app.hideBtn = false;
                 }, 2000);
-                },
-                btnAddClickEventHandler() {
-                    const btn = document.querySelector('#btn');
-
-                    btn.addEventListener('click', () => {
-                         app.showText = !app.showText;
-                    });
                 }
             }
         });
