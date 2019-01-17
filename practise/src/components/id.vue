@@ -11,6 +11,11 @@ export default {
       getRoute() {
           return this.$route.path;
       }
+  },
+  created() {
+      setTimeout(() => {
+          this.$router.push('/about')
+      }, 2500)
   }
 }
 </script>
