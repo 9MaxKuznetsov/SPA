@@ -9,6 +9,7 @@ import Faq from './components/Faq.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { path: '/', component: Main },
     { path: '/about', component: About },
