@@ -13,11 +13,16 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', component: Main },
-    { path: '/about', redirect: '/faq', component: About },
+    { path: '/about', component: About },
     { path: '/faq', component: Faq },
     { path: '/id:id', component: Id }
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+//   alert(`We came from '${from.path}' and we are going to '${to.path}'`)
+//   next()
+// })
 
 Vue.config.productionTip = false
 
